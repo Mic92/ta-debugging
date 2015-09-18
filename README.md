@@ -6,7 +6,7 @@ Abhängigkeiten installieren:
 debian/ubuntu:
 
 ```
-$ apt-get install build-essential strace tcpdump sysdig
+$ apt-get install build-essential strace tcpdump sysdig sysdig-dkms
 ```
 
 archlinux:
