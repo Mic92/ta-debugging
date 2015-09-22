@@ -38,9 +38,15 @@ $ man 2 write
 $ strace -e clone -e write ./fork
 $ strace -e trace=process ./fork
 $ strace -f ./fork
-$ strace bash ./hello.sh
+$ strace -f -o /tmp/trace bash ./hello.sh
 $ bash -x ./hello.sh
+$ strace -e mount -f mount --bind . .
+mount("/tmp/tmp.060KiO3KJg", "/tmp/tmp.060KiO3KJg", 0x820190, MS_MGC_VAL|MS_BIND, NULL) = 0
+$ strace -f ./mount
+$ touch Readme.md
+$ sudo strace -f ./mount
 $ strace nginx -c ./nginx.conf -p . # -> http://localhost:8082/README.md
+$ strace -p $(pidof nginx)
 ```
 
 ## GDB
