@@ -26,12 +26,13 @@ $ make
 
 Infos zu Systemaufrufen:
 
-```
+- ```<syscall>(<arg1>, <arg2>, <arg2>) = <returncode>```
+
+```bash
 $ strace ./hello
 execve("./hello", ["./hello"], [/* 107 vars */]) = 0
-write(1, "Hello World\n", 12Hello World
-)           = 12
-_exit(0)                                = ?
+write(1, "Hello World\n", 12Hello World)         = 12
+_exit(0)                                         = ?
 +++ exited with 0 +++
 $ man 2 execve
 $ man 2 write
@@ -45,6 +46,7 @@ mount("/tmp/tmp.060KiO3KJg", "/tmp/tmp.060KiO3KJg", 0x820190, MS_MGC_VAL|MS_BIND
 $ strace -f ./mount
 $ touch Readme.md
 $ sudo strace -f ./mount
+$ man errno
 $ strace nginx -c ./nginx.conf -p . # -> http://localhost:8082/README.md
 $ strace -p $(pidof nginx)
 ```
