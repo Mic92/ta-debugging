@@ -16,6 +16,9 @@ $ pacman -S base-devel strace tcpdump sysdig gdb
 $ systemctl restart dkms
 ```
 
+freebsd:
+Gdb und tcpdump sind vorinstalliert, truss statt strace
+
 Beispiele bauen mit:
 
 ```
