@@ -8,7 +8,7 @@ Abhängigkeiten installieren:
 debian/ubuntu:
 
 ```bash
-$ apt-get install build-essential strace tcpdump sysdig gdb sysdig-dkms
+$ apt-get install libc6-dbg build-essential strace tcpdump sysdig gdb sysdig-dkms
 ```
 
 archlinux:
@@ -84,15 +84,41 @@ $ gdb ./hello
 (gdb) break *0x000000000040010c
 (gdb) continue
 (gdb) run
-$ make clean
-# Debug flags
-$ make CFLAGS=-g
+$ du -h ./hello
+# add Debug flags
+$ make clean && make CFLAGS=-g
+$ du -h ./hello
 $ gdb ./hello
 (gdb) break hello.s:4
+(gdb) run
 (gdb) continue
 (gdb) break hello.s:8
 (gdb) info breakpoints
+(gdb) info line *0x000000000040010c
+(gdb) delete 1
+(gdb) info breakpoints
 (gdb) next
+(gdb) <ENTER>
+(gdb) <ENTER>
+(gdb) <ENTER>
+(gdb) ....
+(gdb) info inferiors
+$ strip ./hello
+```
+
+### Coredumps
+
+```
+$ systemd-nspawn -D /var/lib/lxc/base
+$ echo core | sudo tee /proc/sys/kernel/core_pattern
+$ ulimit -c unlimited
+$ ./crash
+$ gdb crash core.4036
+(gdb) bt
+# https://packages.debian.org/de/wheezy/amd64/libc6-dbg/filelist
+$ apt-get install libc6-dbg
+$ gdb crash core.4036
+(gdb) bt
 ```
 
 ### Peda
