@@ -71,6 +71,18 @@ $ strace nginx -c ./nginx.conf -p . # -> http://localhost:8082/README.md
 $ strace -p $(pidof nginx)
 ```
 
+## Ltrace
+
+```
+$ ltrace ls 2>&1 | less
+$ ldd /usr/bin/ls
+$ ltrace -e malloc ls | less
+$ man 3 malloc
+$ ltrace -e nginx -t -c ./nginx.conf | less
+/OPENSSL_config
+/strcmp
+```
+
 ## GDB
 
 "Nicht schön, aber selten" (Unbekannter Autor):
@@ -109,16 +121,46 @@ $ strip ./hello
 ### Coredumps
 
 ```
-$ systemd-nspawn -D /var/lib/lxc/base
+$ systemd-nspawn -D /var/lib/lxc/base/rootfs
 $ echo core | sudo tee /proc/sys/kernel/core_pattern
 $ ulimit -c unlimited
-$ ./crash
 $ gdb crash core.4036
 (gdb) bt
-# https://packages.debian.org/de/wheezy/amd64/libc6-dbg/filelist
+$ ldd ./crash
 $ apt-get install libc6-dbg
+# https://packages.debian.org/de/wheezy/amd64/libc6-dbg/filelist
 $ gdb crash core.4036
 (gdb) bt
+```
+
+### Rust
+
+```
+$ rustc -g -L . echoserver.rs
+$ pacman -Ql rust | grep gdb
+$ rust-gdb ./gdb
+(gdb) info threads
+$ break main
+$ continue
+Ctrl-C
+$ bt
+$ nc localhost 7777
+$ info threads
+$ b rust/echoserver.rs:20
+$ b rust/echoserver.rs:24
+$ thread 2
+$ info locals
+$ print buf
+$ p /d sizeof(buf)
+$ p /d count
+$ p &buf
+$ x/100 0x7ffff6ef87d0
+$ x/100s 0x7ffff6ef87d0
+```
+
+### Go
+
+```
 ```
 
 ### Peda
@@ -137,12 +179,10 @@ $ gdb crash core.4036
 
 ```bash
 # Binutils
-$ strings <binary>
 $ ldd <binary>
 $ nm -D <binary>
 $ readelf <binary>
 $ addr2line
-$ strip
 $ objdump
 $ c++filt
 ```
