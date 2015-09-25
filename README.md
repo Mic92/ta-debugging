@@ -161,6 +161,17 @@ $ x/100s 0x7ffff6ef87d0
 ### Go
 
 ```
+$ cd go
+$ go build .
+$ gdb ./go
+(gdb) b concurrency.go:14
+(gdb) run
+(gdb) source /usr/lib/go/src/runtime/runtime-gdb.py
+(gdb) info locals
+(gdb) watch *0xc82000a2b0
+(gdb) info watchpoints
+(gdb) continue
+(gdb) continue
 ```
 
 ### Peda
