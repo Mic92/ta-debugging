@@ -1,8 +1,6 @@
 # Debugging Themenabend
 Folien/Code vom Debugging-Themenabend am 25. September 2015 im [GCHQ](https://c3d2.de/news/ta-debugging.html)
 
-**Work in Progress**
-
 Abhängigkeiten installieren:
 
 debian/ubuntu:
@@ -225,6 +223,12 @@ $ gdb ./crash
 $ lldb ./crash
 ```
 
+## Valgrind
+
+```
+$ valgrind ./leak
+```
+
 ## /proc
 
 ```
@@ -281,12 +285,6 @@ $ lxc-stop -n base
 $ sysdig container.name contains base -w container.trace
 $ lxc-start -n base
 $ sysdig -r container.trace evt.failed=true | less
-```
-
-## Valgrind
-
-```
-$ valgrind ./leak
 ```
 
 ## Kleine Helfer
