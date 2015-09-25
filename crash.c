@@ -1,5 +1,9 @@
 #include <unistd.h>
+int mywd(char* wd){
+  getwd(wd);
+}
 int main() {
   char *buf = (char*)1;
-  getwd(buf);
+  int local = 2;
+  mywd(buf);
 }

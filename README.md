@@ -131,6 +131,9 @@ $ apt-get install libc6-dbg
 # https://packages.debian.org/de/wheezy/amd64/libc6-dbg/filelist
 $ gdb crash core.4036
 (gdb) bt
+(gdb) up
+(gdb) info locale
+(gdb) down
 ```
 
 ### Rust
@@ -182,18 +185,69 @@ $ gdb ./go
 
 ## /proc
 
+```
+$ /proc/self
+$ ls -la cwd
+$ ls -la exe
+$ ls -la fd
+$ exec 3> /tmp/foo
+$ ls -la fd
+$ less maps
+$ less smaps
+$ cat cgroup
+$ less status
+$ less environ
+```
+
 ## tcpdump
 
+```
+$ tcpdump -i any -n port 6600 -A
+$ modprobe usbmon
+$ tcpdump --list-interfaces
+$ tcpdump -i usbmon2 -XX
+$ ss --numeric --processes --tcp
+$ tcpdump -i eth0 host 172.23.75.15 -A -n
+```
+
 ## sysdig
+
+- http://www.sysdig.org/
+- Kernelmodul (`modprobe sysdig-probe`)
+- Kommandozeilenprogramm
+- gute Unterstützung für Linuxcontainer
+- Scriptbar (Luajit)
+- Pcap-Ähnliche Filter
+
+```
+$ sysdig --list | less
+$ sysdig 'proc.name=gdb and evt.type = ptrace'
+$ sysdig -w sysdig.trace 'proc.name=go'
+$ gdb ./go
+(gdb) catch syscall exit_group
+$ sysdig -r sysdig.trace
+$ sysdig -r sysdig.trace evt.is_io=true
+$ sysdig --list-chisels | less
+$ sysdig -c spy_logs # auf dem Server
+$ sysdig -c spy_user
+$ sysdig -c proc_exec_time
+$ make clean all
+$ lxc-start -n base
+$ sysdig -c lscontainers
+$ lxc-attach -n base env - bash
+$ lxc-stop -n base
+$ sysdig container.name contains base -w container.trace
+$ lxc-start -n base
+$ sysdig -r container.trace evt.failed=true | less
+```
 
 ## Kleine Helfer
 
 ```bash
 # Binutils
-$ ldd <binary>
-$ nm -D <binary>
+$ nm -D /usr/lib/libboost_atomic.so
+$ c++filt _ZN5boost7atomics6detail8lockpool11scoped_lockC1EPVKv
 $ readelf <binary>
 $ addr2line
 $ objdump
-$ c++filt
 ```
