@@ -283,6 +283,12 @@ $ lxc-start -n base
 $ sysdig -r container.trace evt.failed=true | less
 ```
 
+## Valgrind
+
+```
+$ valgrind ./leak
+```
+
 ## Kleine Helfer
 
 ```bash

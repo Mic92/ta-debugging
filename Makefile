@@ -1,4 +1,4 @@
-all: hello fork mount crash
+all: hello fork mount crash leak
 
 hello: hello.s
 	$(CC) $(CFLAGS) -nostdlib -o hello hello.s
@@ -11,6 +11,9 @@ mount: mount.c
 
 crash: crash.c
 	$(CC) $(CFLAGS) -o crash crash.c
+
+leak: leak.c
+	$(CC) $(CFLAGS) -o leak leak.c
 
 clean:
 	rm -f hello fork mount crash
