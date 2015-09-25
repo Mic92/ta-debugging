@@ -205,12 +205,25 @@ $ gdb ./crash
 
 ### Peda
 
+https://github.com/longld/peda
+
+```
+$ gdb ./crash
+(gdb) b main
+(gdb) vmmap
+(gdb) xinfo 0x7fffffffdb24
+(gdb) telescope 0x7fffffffdb24
+```
+
 ## LLDB
 
 - bessere UI
 - modernere Architektur
 - weniger Plattformen
+
+```
 $ lldb ./crash
+```
 
 ## /proc
 
