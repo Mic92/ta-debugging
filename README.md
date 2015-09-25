@@ -177,11 +177,40 @@ $ gdb ./go
 (gdb) continue
 ```
 
+### Remote Server
+```
+$ cd ~/go/src/github.com/Mic92/gogopherd/gogopherd_linux_arm
+$ adb shell
+android> gdbserver 192.168.42.129:2345 /system/xbin/gogopherd /sdcard
+$ arm-none-eabi-gdb
+(gdb) file gogopherd
+(gdb) target remote 192.168.42.129:2345
+$ adb shell
+android> telnet localhost 70
+```
+
+### Reverse Debugging
+
+```
+$ gdb ./crash
+(gdb) b main
+(gdb) run
+(gdb) record full
+(gdb) c
+(gdb) bt
+(gdb) reverse-next
+(gdb) set exec-direction reverse
+(gdb) next
+```
+
 ### Peda
 
 ## LLDB
 
-"Schöner aber nicht ganz fertig"
+- bessere UI
+- modernere Architektur
+- weniger Plattformen
+$ lldb ./crash
 
 ## /proc
 
